@@ -8,4 +8,6 @@ GitHub Actions runs the same checks on Linux and macOS.
 
 The [fixture guide](tests/fixtures/README.md) explains how to add shared cases or use the private local corpus.
 
+The [pipeline proposal](docs/pipeline.md) describes how receipt inputs become normalized records.
+
 Licensed under [Apache 2.0](LICENSE).
