@@ -22,11 +22,11 @@ These synthetic fixtures follow one tilted receipt through the stage boundaries.
 
 | Stage | Example input | Example output |
 | --- | --- | --- |
-| Prepare image | [Tilted receipt](examples/pipeline/receipt.png) | [Sanitized raster](examples/pipeline/prepared.png) |
-| Observe | [Sanitized raster](examples/pipeline/prepared.png) | [Positioned text spans](examples/pipeline/observed.json) |
-| Structure | [Positioned text spans](examples/pipeline/observed.json) | [Header, item table, and summary rows](examples/pipeline/structured.json) |
-| Interpret | [Structured evidence](examples/pipeline/structured.json) | [Receipt candidate with evidence links](examples/pipeline/candidate.json) |
-| Resolve | [Receipt candidate](examples/pipeline/candidate.json) | [Normalized receipt with review status](examples/pipeline/result.json) |
+| Prepare image | [Tilted receipt](../tests/fixtures/pipeline/example-shop/receipt.png) | [Sanitized raster](../tests/fixtures/pipeline/example-shop/prepared.png) |
+| Observe | [Sanitized raster](../tests/fixtures/pipeline/example-shop/prepared.png) | [Positioned text spans](../tests/fixtures/pipeline/example-shop/observed.json) |
+| Structure | [Positioned text spans](../tests/fixtures/pipeline/example-shop/observed.json) | [Header, item table, and summary rows](../tests/fixtures/pipeline/example-shop/structured.json) |
+| Interpret | [Structured evidence](../tests/fixtures/pipeline/example-shop/structured.json) | [Receipt candidate with evidence links](../tests/fixtures/pipeline/example-shop/candidate.json) |
+| Resolve | [Receipt candidate](../tests/fixtures/pipeline/example-shop/candidate.json) | [Normalized receipt with review status](../tests/fixtures/pipeline/example-shop/result.json) |
 
 ## Shared contracts
 
