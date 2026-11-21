@@ -1,0 +1,12 @@
+/.uv-cache/
+/.venv/
+/.local/
+/build/
+/dist/
+/.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+__pycache__/
+*.egg-info/
