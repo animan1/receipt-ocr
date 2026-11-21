@@ -1,0 +1,4 @@
+include .python-version Makefile uv.lock
+graft tests
+prune .local
+global-exclude *.py[cod] .DS_Store
