@@ -1,0 +1,20 @@
+{
+  "page": 1,
+  "image": "prepared.png",
+  "spans": [
+    {"id": "s1", "text": "Example Shop", "box": {"left": 0.0667, "top": 0.0765, "right": 0.4976, "bottom": 0.1421}},
+    {"id": "s2", "text": "10/18/2026", "box": {"left": 0.0667, "top": 0.1913, "right": 0.3238, "bottom": 0.2322}},
+    {"id": "s3", "text": "ITEM", "box": {"left": 0.0667, "top": 0.3388, "right": 0.169, "bottom": 0.3743}},
+    {"id": "s4", "text": "AMOUNT", "box": {"left": 0.7786, "top": 0.3388, "right": 0.9333, "bottom": 0.3743}},
+    {"id": "s5", "text": "Paper labels", "box": {"left": 0.0667, "top": 0.4235, "right": 0.3762, "bottom": 0.4727}},
+    {"id": "s6", "text": "7.50", "box": {"left": 0.831, "top": 0.4235, "right": 0.9333, "bottom": 0.459}},
+    {"id": "s7", "text": "Marker", "box": {"left": 0.0667, "top": 0.5082, "right": 0.2214, "bottom": 0.5464}},
+    {"id": "s8", "text": "2.50", "box": {"left": 0.831, "top": 0.5082, "right": 0.9333, "bottom": 0.5437}},
+    {"id": "s9", "text": "SUBTOTAL", "box": {"left": 0.0667, "top": 0.6284, "right": 0.2738, "bottom": 0.6639}},
+    {"id": "s10", "text": "10.00", "box": {"left": 0.8048, "top": 0.6284, "right": 0.9333, "bottom": 0.6639}},
+    {"id": "s11", "text": "TAX", "box": {"left": 0.0667, "top": 0.7131, "right": 0.1452, "bottom": 0.7486}},
+    {"id": "s12", "text": "0.80", "box": {"left": 0.831, "top": 0.7131, "right": 0.9333, "bottom": 0.7486}},
+    {"id": "s13", "text": "TOTAL USD", "box": {"left": 0.0667, "top": 0.8197, "right": 0.3643, "bottom": 0.8661}},
+    {"id": "s14", "text": "10.80", "box": {"left": 0.769, "top": 0.8197, "right": 0.9333, "bottom": 0.8661}}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "observations": "observed.json",
+  "header": ["s1", "s2"],
+  "item_table": {
+    "columns": ["s3", "s4"],
+    "rows": [["s5", "s6"], ["s7", "s8"]]
+  },
+  "summary_rows": [["s9", "s10"], ["s11", "s12"], ["s13", "s14"]]
+}

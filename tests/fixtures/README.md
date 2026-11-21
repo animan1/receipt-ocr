@@ -14,3 +14,7 @@ The private corpus includes every visible file in the supplied receipt archive. 
 The scorer can use `references.archive_filename` as a provisional merchant, receipt date, and total label. It can use `references.ledger_payment` to compare the recorded payment amount and currency. The ledger posting date is included for matching and can differ from the receipt date. Missing references are `null`. Amounts are decimal strings.
 
 The fixture reader needs no account paths, ledger identifiers, or accounting splits. Keep the generated files local until a reviewable subset has been selected and checked for release. Preparing the corpus again regenerates the manifest and automatic labels, so keep reviewed transcriptions separately from these generated labels.
+
+## Pipeline stages
+
+Keep stage-by-stage cases in `pipeline/<case>/`, alongside the paired corpus directories. The [pipeline proposal](../../docs/pipeline.md#example-fixtures) links the images and intermediate outputs for `example-shop`.
