@@ -5,46 +5,73 @@ UV_CACHE_DIR ?= $(CURDIR)/.uv-cache
 export UV_CACHE_DIR
 RUN := $(UV) run --locked --no-sync
 COVERAGE_FLAGS := $(if $(filter 1,$(COVERAGE)),--cov=receipt_ocr --cov-report=term-missing)
+FEATURED := setup check test build help help-verbose
 
-.PHONY: help setup build deps-lock format format-check lint typecheck test check
-help:
-	@printf '%s\n' \
-	  'setup                            Install the locked development environment' \
-	  'build                            Build the source distribution and wheel' \
-	  'deps-lock                        Resolve the declared dependency constraints' \
-	  'format                           Format Python source' \
-	  'format-check                     Check Python formatting' \
-	  'lint                             Check Python lint rules' \
-	  'typecheck                        Check Python types' \
-	  'test [COVERAGE=1]                Run tests, optionally enforcing coverage' \
-	  'check                            Run formatting, lint, type checks, and tests with coverage'
+define show_help
+	@LC_ALL=C sort -t: -k1,1 $(MAKEFILE_LIST) | awk -v featured="$(FEATURED)" -v verbose="$(1)" '\
+		/^[[:alnum:]_.-]+:.*## / { \
+			target = $$0; sub(/:.*/, "", target); \
+			description = $$0; sub(/^[^:]+:.*## /, "", description); \
+			targets[++count] = target; descriptions[target] = description; \
+		} \
+		END { \
+			print "Make targets:"; \
+			printf "  \033[1mFeatured\033[0m\n"; \
+			featured_count = split(featured, names, " "); \
+			for (i = 1; i <= featured_count; i++) { \
+				print_target(names[i]); featured_targets[names[i]] = 1; \
+			} \
+			if (verbose) { \
+				printf "\n  \033[1mEverything else\033[0m\n"; \
+				for (i = 1; i <= count; i++) { \
+					if (!(targets[i] in featured_targets)) print_target(targets[i]); \
+				} \
+			} \
+		} \
+		function print_target(name) { \
+			printf "    \033[36m%-24s\033[0m %s\n", name, descriptions[name]; \
+		}'
+endef
 
-setup:
+.PHONY: help help-verbose setup prepare-dev hooks build deps-lock format format-check lint typecheck test check
+help: ## Show featured commands
+	$(call show_help,0)
+
+help-verbose: ## Show all commands
+	$(call show_help,1)
+
+setup: ## Install the locked development environment
 	$(UV) sync --locked
 
-build:
+prepare-dev: ## Prepare private test fixtures with ARCHIVE=... BOOK=...
+	$(RUN) python -m tests.fixture_corpus --archive "$(ARCHIVE)" --book "$(BOOK)"
+
+hooks: ## Install the fixture pre-push guard
+	git config --local core.hooksPath .githooks
+
+build: ## Build the source distribution and wheel
 	$(UV) build --no-sources
 
-deps-lock:
+deps-lock: ## Resolve the declared dependency constraints
 	$(UV) lock
 
-format:
+format: ## Format Python source and apply lint fixes
 	$(RUN) ruff check --fix src tests
 	$(RUN) ruff format src tests
 
-format-check:
+format-check: ## Check Python formatting
 	$(RUN) ruff format --check src tests
 
-lint:
+lint: ## Check Python lint rules
 	$(RUN) ruff check src tests
 
-typecheck:
+typecheck: ## Check Python types
 	$(RUN) mypy src tests
 
-test:
+test: ## Run tests with optional COVERAGE=1 enforcement
 	$(RUN) pytest $(COVERAGE_FLAGS)
 
-check:
+check: ## Run formatting, lint, type checks, and tests with coverage
 	$(MAKE) format-check
 	$(MAKE) lint
 	$(MAKE) typecheck

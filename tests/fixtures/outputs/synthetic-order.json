@@ -1,0 +1,16 @@
+{
+  "receipt_records": [
+    {
+      "order_id": "ORDER-001",
+      "payment_reference": "PAYMENT-001",
+      "payment_date": "2026-10-18",
+      "payment_amount": "10.00",
+      "currency": "USD",
+      "items": [
+        {"description": "Paper labels", "amount": "7.50"},
+        {"description": "Marker", "amount": "2.50"}
+      ]
+    }
+  ],
+  "references": {}
+}
