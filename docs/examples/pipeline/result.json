@@ -1,0 +1,25 @@
+{
+  "candidate": "candidate.json",
+  "status": "complete",
+  "receipts": [
+    {
+      "merchant": {"value": "Example Shop", "evidence": ["s1"]},
+      "receipt_date": {"value": "2026-10-18", "evidence": ["s2"]},
+      "currency": {"value": "USD", "evidence": ["s13"]},
+      "items": [
+        {
+          "description": {"value": "Paper labels", "evidence": ["s5"]},
+          "amount": {"value": "7.50", "evidence": ["s6"]}
+        },
+        {
+          "description": {"value": "Marker", "evidence": ["s7"]},
+          "amount": {"value": "2.50", "evidence": ["s8"]}
+        }
+      ],
+      "subtotal": {"value": "10.00", "evidence": ["s9", "s10"]},
+      "tax": {"value": "0.80", "evidence": ["s11", "s12"]},
+      "total": {"value": "10.80", "evidence": ["s13", "s14"]}
+    }
+  ],
+  "issues": []
+}
