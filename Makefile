@@ -6,10 +6,12 @@ export UV_CACHE_DIR
 RUN := $(UV) run --locked --no-sync
 COVERAGE_FLAGS := $(if $(filter 1,$(COVERAGE)),--cov=receipt_ocr --cov-report=term-missing)
 
-.PHONY: help setup build deps-lock format format-check lint typecheck test check
+.PHONY: help setup prepare-dev hooks build deps-lock format format-check lint typecheck test check
 help:
 	@printf '%s\n' \
 	  'setup                            Install the locked development environment' \
+	  'prepare-dev ARCHIVE=... BOOK=...  Prepare private local test fixtures' \
+	  'hooks                            Install the fixture pre-push guard' \
 	  'build                            Build the source distribution and wheel' \
 	  'deps-lock                        Resolve the declared dependency constraints' \
 	  'format                           Format Python source' \
@@ -21,6 +23,12 @@ help:
 
 setup:
 	$(UV) sync --locked
+
+prepare-dev:
+	$(RUN) python -m tests.fixture_corpus --archive "$(ARCHIVE)" --book "$(BOOK)"
+
+hooks:
+	git config --local core.hooksPath .githooks
 
 build:
 	$(UV) build --no-sources

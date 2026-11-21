@@ -6,4 +6,6 @@ Use Python 3.12 and `uv`. Run `make setup` to install the locked development dep
 
 GitHub Actions runs the same checks on Linux and macOS.
 
+The [fixture guide](tests/fixtures/README.md) explains how to add shared cases or use the private local corpus.
+
 Licensed under [Apache 2.0](LICENSE).
