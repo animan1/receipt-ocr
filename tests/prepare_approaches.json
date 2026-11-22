@@ -1,0 +1,4 @@
+[
+  {"name": "scikit-image", "method": "tests.backend_prepare:prepare_for_scoring", "params": {"backend": "scikit-image", "chroma_cap": 22}},
+  {"name": "opencv", "method": "tests.backend_prepare:prepare_for_scoring", "params": {"backend": "opencv"}}
+]
