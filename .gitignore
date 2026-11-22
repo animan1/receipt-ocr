@@ -3,6 +3,7 @@
 /.local/
 /build/
 /dist/
+/tests/fixtures/debug/
 /.coverage
 .mypy_cache/
 .pytest_cache/

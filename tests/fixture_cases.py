@@ -7,6 +7,7 @@ from pathlib import Path
 from tests.fixture_repository import FIXTURE_PATH, PROJECT_ROOT, private_fixture_root
 
 FIXTURES = PROJECT_ROOT / FIXTURE_PATH
+IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".tif", ".tiff"}
 
 
 @dataclass(frozen=True)
@@ -71,3 +72,19 @@ def discover_cases(shared: Path = FIXTURES, local: Path | None = None) -> list[F
         FixtureCase(fixture_id, inputs[fixture_id], outputs[fixture_id], checksums.get(fixture_id))
         for fixture_id in sorted(inputs)
     ]
+
+
+def discover_images(shared: Path, private: Path) -> dict[str, Path]:
+    images = {
+        case.id: case.input_path
+        for case in discover_cases(shared, private)
+        if case.input_path.suffix.lower() in IMAGE_SUFFIXES
+    }
+    for root in (shared, private):
+        for source in sorted(root.glob("pipeline/*/receipt.*")):
+            if source.suffix.lower() in IMAGE_SUFFIXES:
+                fixture_id = source.parent.name
+                if fixture_id in images:
+                    raise ValueError(f"Duplicate image fixture ID {fixture_id!r}")
+                images[fixture_id] = source
+    return images

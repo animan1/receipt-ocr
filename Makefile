@@ -5,6 +5,7 @@ UV_CACHE_DIR ?= $(CURDIR)/.uv-cache
 export UV_CACHE_DIR
 RUN := $(UV) run --locked --no-sync
 COVERAGE_FLAGS := $(if $(filter 1,$(COVERAGE)),--cov=receipt_ocr --cov-report=term-missing)
+BACKEND ?= scikit-image
 FEATURED := setup check test build help help-verbose
 
 define show_help
@@ -33,7 +34,7 @@ define show_help
 		}'
 endef
 
-.PHONY: help help-verbose setup prepare-dev hooks build deps-lock format format-check lint typecheck test check
+.PHONY: help help-verbose setup prepare-dev prepare-image hooks build deps-lock format format-check lint typecheck test check
 help: ## Show featured commands
 	$(call show_help,0)
 
@@ -45,6 +46,9 @@ setup: ## Install the locked development environment
 
 prepare-dev: ## Prepare private test fixtures with ARCHIVE=... BOOK=...
 	$(RUN) python -m tests.fixture_corpus --archive "$(ARCHIVE)" --book "$(BOOK)"
+
+prepare-image: ## Prepare INPUT=... in OUTPUT_DIR=..., optionally with BACKEND=opencv
+	$(RUN) receipt-prepare-image "$(INPUT)" --output-dir "$(OUTPUT_DIR)" --backend "$(BACKEND)"
 
 hooks: ## Install the fixture pre-push guard
 	git config --local core.hooksPath .githooks
@@ -68,8 +72,8 @@ lint: ## Check Python lint rules
 typecheck: ## Check Python types
 	$(RUN) mypy src tests
 
-test: ## Run tests with optional COVERAGE=1 enforcement
-	$(RUN) pytest $(COVERAGE_FLAGS)
+test: ## Run tests with optional COVERAGE=1 and PREPARE_FIXTURE=<image ID>
+	$(RUN) pytest $(COVERAGE_FLAGS) $(if $(PREPARE_FIXTURE),--prepare-fixture "$(PREPARE_FIXTURE)")
 
 check: ## Run formatting, lint, type checks, and tests with coverage
 	$(MAKE) format-check

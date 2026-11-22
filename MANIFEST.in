@@ -1,5 +1,6 @@
 include .python-version Makefile uv.lock
 include .githooks/pre-push
 graft tests
+prune tests/fixtures/debug
 prune .local
 global-exclude *.py[cod] .DS_Store
