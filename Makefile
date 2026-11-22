@@ -6,6 +6,7 @@ export UV_CACHE_DIR
 RUN := $(UV) run --locked --no-sync
 COVERAGE_FLAGS := $(if $(filter 1,$(COVERAGE)),--cov=receipt_ocr --cov-report=term-missing)
 BACKEND ?= scikit-image
+APPROACHES ?= tests/prepare_approaches.json
 FEATURED := setup check test build help help-verbose
 
 define show_help
@@ -34,7 +35,7 @@ define show_help
 		}'
 endef
 
-.PHONY: help help-verbose setup prepare-dev prepare-image hooks build deps-lock format format-check lint typecheck test check
+.PHONY: help help-verbose setup prepare-dev prepare-image evaluate-prepare hooks build deps-lock format format-check lint typecheck test check
 help: ## Show featured commands
 	$(call show_help,0)
 
@@ -49,6 +50,9 @@ prepare-dev: ## Prepare private test fixtures with ARCHIVE=... BOOK=...
 
 prepare-image: ## Prepare INPUT=... in OUTPUT_DIR=..., optionally with BACKEND=opencv
 	$(RUN) receipt-prepare-image "$(INPUT)" --output-dir "$(OUTPUT_DIR)" --backend "$(BACKEND)"
+
+evaluate-prepare: ## Compare image fixtures with optional APPROACHES=<JSON config>
+	$(RUN) python -m tests.evaluate_prepare --approaches "$(APPROACHES)"
 
 hooks: ## Install the fixture pre-push guard
 	git config --local core.hooksPath .githooks
