@@ -18,3 +18,7 @@ The fixture reader needs no account paths, ledger identifiers, or accounting spl
 ## Pipeline stages
 
 Keep stage-by-stage cases in `pipeline/<case>/`, alongside the paired corpus directories. The [pipeline proposal](../../docs/pipeline.md#example-fixtures) links the images and intermediate outputs for `example-shop`.
+
+Run `make test` to generate preparation diagnostics for every raster fixture in the shared and available private corpora. For a stage-by-stage case, name its original image `receipt.<extension>`. Use `make test PREPARE_FIXTURE=<image fixture ID>` to limit preparation to one image. CSVs and PDFs still participate in the paired fixture checks.
+
+Artifacts go directly in the fixture owner's `tests/fixtures/debug/`, named `<fixture-id>-<stage-number>-<artifact>`. For example, Prepare image writes `example-shop-01-prepared.png`, `example-shop-01-lines.png`, and `example-shop-01-report.json`. Keep the debug directory ignored in both repositories.
