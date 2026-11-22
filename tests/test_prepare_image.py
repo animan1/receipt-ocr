@@ -5,8 +5,9 @@ from pathlib import Path
 import cv2
 import pytest
 
-from receipt_ocr._opencv_prepare import Segment, _analyze, _choose_deskew
-from receipt_ocr.prepare_image import Backend, main, prepare_image
+from receipt_ocr.prepare import Backend, prepare_image
+from receipt_ocr.prepare.cli import main
+from receipt_ocr.prepare.impl.opencv import Segment, _analyze, _choose_deskew
 from tests.fixture_cases import FIXTURES, discover_images
 from tests.fixture_repository import private_fixture_root
 

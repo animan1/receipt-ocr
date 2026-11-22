@@ -1,4 +1,4 @@
-"""Crop and deskew paper using brightness and chroma."""
+"""Crop and deskew paper with scikit-image using brightness and chroma."""
 
 import io
 import json

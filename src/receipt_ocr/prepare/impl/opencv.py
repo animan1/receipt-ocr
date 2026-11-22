@@ -1,4 +1,4 @@
-"""Prepare a receipt raster for reading and optionally save deskew diagnostics."""
+"""Crop and deskew paper with OpenCV."""
 
 import json
 from collections.abc import Sequence

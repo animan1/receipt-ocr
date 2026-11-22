@@ -16,7 +16,7 @@ dependencies = ["numpy>=1.26", "pillow>=10", "scikit-image>=0.26"]
 opencv = ["opencv-python-headless>=4.10"]
 
 [project.scripts]
-receipt-prepare-image = "receipt_ocr.prepare_image:main"
+receipt-prepare-image = "receipt_ocr.prepare.cli:main"
 
 [dependency-groups]
 dev = ["mypy>=1.15", "opencv-python-headless>=4.10", "pytest>=8", "pytest-cov>=6", "ruff>=0.11"]
