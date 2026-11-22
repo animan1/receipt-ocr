@@ -4,7 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
-from tests.evaluate_prepare import evaluate, load_approaches
+from tests.evaluate_prepare import ANNOTATION_PATH, evaluate, load_approaches
 from tests.fixture_cases import FIXTURES
 from tests.prepare_metrics import Geometry, Preparation, Reference, boundary_error, score
 from tests.prepare_summary import write_summary
@@ -37,9 +37,9 @@ def prepare_image_only(source: Path) -> bytes:
 
 
 def test_comparison_runs_multiple_configured_methods_with_parameters(tmp_path: Path) -> None:
-    label = tmp_path / "quality" / "example-shop.json"
-    label.parent.mkdir()
-    shutil.copyfile(FIXTURES / "quality" / label.name, label)
+    label = tmp_path / ANNOTATION_PATH / "example-shop.json"
+    label.parent.mkdir(parents=True)
+    shutil.copyfile(FIXTURES / ANNOTATION_PATH / label.name, label)
     relative_source = json.loads(label.read_text(encoding="utf-8"))["input"]
     source = tmp_path / relative_source
     source.parent.mkdir(parents=True)

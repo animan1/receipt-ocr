@@ -17,6 +17,7 @@ from tests.prepare_metrics import Preparation, Reference, score
 from tests.prepare_summary import CaseScores, write_summary
 
 PrepareMethod = Callable[..., bytes | Preparation]
+ANNOTATION_PATH = Path("annotations") / "prepare-image"
 
 
 @dataclass(frozen=True)
@@ -53,7 +54,7 @@ def load_approaches(config: Path) -> list[Approach]:
 def evaluate(
     fixture_id: str, source: Path, root: Path, approaches: list[Approach]
 ) -> tuple[CaseScores, bool]:
-    label = root / "quality" / f"{fixture_id}.json"
+    label = root / ANNOTATION_PATH / f"{fixture_id}.json"
     reference = None
     provenance = None
     if label.is_file():
