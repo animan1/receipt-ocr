@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from receipt_ocr.prepare_image import Backend, prepare_image
+from receipt_ocr.prepare import Backend, prepare_image
 from tests.prepare_metrics import Geometry, Preparation
 
 
