@@ -7,6 +7,7 @@ RUN := $(UV) run --locked --no-sync
 COVERAGE_FLAGS := $(if $(filter 1,$(COVERAGE)),--cov=receipt_ocr --cov-report=term-missing)
 BACKEND ?= scikit-image
 APPROACHES ?= tests/prepare_approaches.json
+OBSERVE_APPROACHES ?= tests/observe_approaches.json
 FEATURED := setup check test build help help-verbose
 
 define show_help
@@ -35,15 +36,15 @@ define show_help
 		}'
 endef
 
-.PHONY: help help-verbose setup prepare-dev prepare-image evaluate-prepare hooks build deps-lock format format-check lint typecheck test check
+.PHONY: help help-verbose setup prepare-dev prepare-image evaluate-prepare evaluate-observe hooks build deps-lock format format-check lint typecheck test check
 help: ## Show featured commands
 	$(call show_help,0)
 
 help-verbose: ## Show all commands
 	$(call show_help,1)
 
-setup: ## Install the locked development environment
-	$(UV) sync --locked
+setup: ## Install the locked development environment, optionally with OBSERVE=1
+	$(UV) sync --locked $(if $(filter 1,$(OBSERVE)),--extra observe)
 
 prepare-dev: ## Prepare private test fixtures with ARCHIVE=... BOOK=...
 	$(RUN) python -m tests.fixture_corpus --archive "$(ARCHIVE)" --book "$(BOOK)"
@@ -53,6 +54,9 @@ prepare-image: ## Prepare INPUT=... in OUTPUT_DIR=..., optionally with BACKEND=o
 
 evaluate-prepare: ## Compare image fixtures with optional APPROACHES=<JSON config>
 	$(RUN) python -m tests.evaluate_prepare --approaches "$(APPROACHES)"
+
+evaluate-observe: ## Compare OCR engines with optional OBSERVE_FIXTURE=<image ID> and OBSERVE_APPROACHES=<JSON config>
+	$(RUN) python -m tests.evaluate_observe --approaches "$(OBSERVE_APPROACHES)" $(if $(OBSERVE_FIXTURE),--fixture "$(OBSERVE_FIXTURE)")
 
 hooks: ## Install the fixture pre-push guard
 	git config --local core.hooksPath .githooks
