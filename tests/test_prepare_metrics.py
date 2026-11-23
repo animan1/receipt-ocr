@@ -4,7 +4,8 @@ from pathlib import Path
 
 import numpy as np
 
-from tests.evaluate_prepare import ANNOTATION_PATH, evaluate, load_approaches
+from tests.approaches import load_approaches
+from tests.evaluate_prepare import ANNOTATION_PATH, evaluate
 from tests.fixture_cases import FIXTURES
 from tests.prepare_metrics import Geometry, Preparation, Reference, boundary_error, score
 from tests.prepare_summary import write_summary

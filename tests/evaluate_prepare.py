@@ -2,53 +2,18 @@
 
 import argparse
 import json
-import re
-from collections.abc import Callable
-from dataclasses import asdict, dataclass
-from importlib import import_module
+from dataclasses import asdict
 from pathlib import Path
-from typing import cast
 
 import cv2
 
+from tests.approaches import Approach, load_approaches
 from tests.fixture_cases import FIXTURES, discover_images
 from tests.fixture_repository import private_fixture_root
 from tests.prepare_metrics import Preparation, Reference, score
 from tests.prepare_summary import CaseScores, write_summary
 
-PrepareMethod = Callable[..., bytes | Preparation]
 ANNOTATION_PATH = Path("annotations") / "prepare-image"
-
-
-@dataclass(frozen=True)
-class Approach:
-    name: str
-    method: str
-    run: PrepareMethod
-    params: dict[str, object]
-
-
-def load_approaches(config: Path) -> list[Approach]:
-    definitions = json.loads(config.read_text(encoding="utf-8"))
-    if not isinstance(definitions, list) or len(definitions) < 2:
-        raise ValueError("Approach config must list at least two methods.")
-    approaches = []
-    names = set()
-    for definition in definitions:
-        name: str = definition["name"]
-        method: str = definition["method"]
-        params: dict[str, object] = definition.get("params", {})
-        if not re.fullmatch(r"[a-z0-9_-]+", name) or name in names:
-            raise ValueError(f"Invalid or duplicate approach name: {name!r}")
-        module_name, _, function = method.partition(":")
-        if not module_name or not function:
-            raise ValueError(f"Expected a module:callable for {name!r}.")
-        run = getattr(import_module(module_name), function)
-        if not callable(run) or not isinstance(params, dict):
-            raise TypeError(f"Expected a callable and keyword parameters for {name!r}.")
-        approaches.append(Approach(name, method, cast(PrepareMethod, run), params))
-        names.add(name)
-    return approaches
 
 
 def evaluate(
@@ -75,6 +40,8 @@ def evaluate(
     case_scores: CaseScores = {}
     for approach in approaches:
         output = approach.run(source, **approach.params)
+        if not isinstance(output, (bytes, Preparation)):
+            raise TypeError(f"{approach.name!r} must return PNG bytes or a Preparation.")
         prepared = Preparation(output) if isinstance(output, bytes) else output
         geometry = prepared.geometry
         values = score(image, reference, geometry) if geometry is not None else None

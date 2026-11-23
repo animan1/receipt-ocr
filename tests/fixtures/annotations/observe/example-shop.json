@@ -1,0 +1,13 @@
+{
+  "input": "pipeline/example-shop/receipt.png",
+  "transcript": "Example Shop\n10/18/2026\nITEM AMOUNT\nPaper labels 7.50\nMarker 2.50\nSUBTOTAL 10.00\nTAX 0.80\nTOTAL USD 10.80",
+  "regions": [
+    {"id": "merchant", "kind": "text", "text": "Example Shop", "box": {"left": 0.166, "top": 0.191, "right": 0.502, "bottom": 0.239}},
+    {"id": "date", "kind": "date", "text": "10/18/2026", "box": {"left": 0.166, "top": 0.271, "right": 0.368, "bottom": 0.308}},
+    {"id": "item-one-amount", "kind": "amount", "text": "7.50", "box": {"left": 0.752, "top": 0.441, "right": 0.834, "bottom": 0.475}},
+    {"id": "item-two-amount", "kind": "amount", "text": "2.50", "box": {"left": 0.752, "top": 0.503, "right": 0.834, "bottom": 0.537}},
+    {"id": "subtotal", "kind": "amount", "text": "10.00", "box": {"left": 0.730, "top": 0.588, "right": 0.834, "bottom": 0.623}},
+    {"id": "tax", "kind": "amount", "text": "0.80", "box": {"left": 0.752, "top": 0.649, "right": 0.834, "bottom": 0.683}},
+    {"id": "total", "kind": "amount", "text": "10.80", "box": {"left": 0.704, "top": 0.726, "right": 0.834, "bottom": 0.768}}
+  ]
+}

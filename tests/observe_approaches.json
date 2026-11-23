@@ -1,0 +1,5 @@
+[
+  {"name": "tesseract", "method": "receipt_ocr.observe.impl.tesseract:observe", "params": {"psm": 6}},
+  {"name": "tesseract-sparse", "method": "receipt_ocr.observe.impl.tesseract:observe", "params": {"psm": 11}},
+  {"name": "rapidocr", "method": "receipt_ocr.observe.impl.rapidocr:observe", "params": {"max_side_len": 2000}}
+]

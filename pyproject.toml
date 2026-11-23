@@ -14,6 +14,7 @@ dependencies = ["numpy>=1.26", "pillow>=10", "scikit-image>=0.26"]
 
 [project.optional-dependencies]
 opencv = ["opencv-python-headless>=4.10"]
+observe = ["onnxruntime>=1.23", "rapidocr==3.10.0"]
 
 [project.scripts]
 receipt-prepare-image = "receipt_ocr.prepare.cli:main"
